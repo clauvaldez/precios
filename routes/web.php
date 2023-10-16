@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\ContratistasController;
+use App\Http\Controllers\CategoriasController;
 
 
 /*
@@ -56,6 +57,16 @@ Route::middleware('auth')->group(function () {
     Route::get('contratistas/{contratista}', [ContratistasController::class, 'show'])->name('contratistas.show');
     Route::get('contratistas/{contratista}/edit', [ContratistasController::class, 'edit'])->name('contratistas.edit');
     Route::put('contratistas/{contratista}', [ContratistasController::class, 'update'])->name('contratistas.update');
+
+    //Categorias de Materiales
+
+    Route::get('categorias', [CategoriasController::class, 'index'])->name('categorias.index');
+    Route::get('categorias/create', [CategoriasController::class, 'create'])->name('categorias.create');
+    Route::post('categorias', [CategoriasController::class, 'store'])->name('categorias.store');
+    Route::get('categorias/{categoria}', [CategoriasController::class, 'show'])->name('categorias.show');
+    Route::get('categorias/{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.edit');
+    Route::put('categorias/{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
+    Route::delete('categorias/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');
 });
 
 

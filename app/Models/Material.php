@@ -2,20 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Material extends Model
 {
-    use HasFactory;
-    protected $table = 'materiales';
-
     protected $fillable = [
         'nombre',
         'unidad_medida',
         'precio_referencial',
         'fecha_ultima_modificacion',
-        'imagen', // Si deseas permitir la asignación masiva de la columna 'imagen'
+        'imagen',
+        'categoria_id', // Nuevo campo para la categoría
     ];
 
+    //nombre de la tabla
+    protected $table = 'materiales';
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }

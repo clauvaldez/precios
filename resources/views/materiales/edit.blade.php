@@ -15,6 +15,15 @@
             <input type="text" name="nombre" class="border w-full px-3 py-2 rounded-md" value="{{ $material->nombre }}">
         </div>
         <div class="mb-4">
+    <label for="categoria_id" class="block text-sm font-medium text-gray-600">Categoría</label>
+    <select name="categoria_id" id="categoria_id" class="form-select">
+        @foreach($categorias as $categoria)
+            <option value="{{ $categoria->id }}" {{ $material->categoria_id == $categoria->id ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
+        @endforeach
+    </select>
+</div>
+
+        <div class="mb-4">
             <label for="unidad_medida" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Unidad de Medida:</label>
             <input type="text" name="unidad_medida" class="border w-full px-3 py-2 rounded-md" value="{{ $material->unidad_medida }}">
         </div>

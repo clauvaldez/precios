@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Material;
+use App\Models\Categoria;
 
 class MaterialesController extends Controller
 {
@@ -15,7 +16,8 @@ class MaterialesController extends Controller
 
     public function create()
     {
-        return view('materiales.create');
+        $categorias = Categoria::all();
+        return view('materiales.create', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -25,7 +27,8 @@ class MaterialesController extends Controller
             'unidad_medida' => 'required|string',
             'precio_referencial' => 'required|numeric',
             'fecha_ultima_modificacion' => 'required|date',
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Opcional: para manejar imágenes
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'categoria_id' => 'required', // Agregar la validación de categoría
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -45,7 +48,8 @@ class MaterialesController extends Controller
 
     public function edit(Material $material)
     {
-        return view('materiales.edit', compact('material'));
+        $categorias = Categoria::all();
+        return view('materiales.edit', compact('material', 'categorias'));
     }
 
     public function update(Request $request, Material $material)
@@ -55,7 +59,8 @@ class MaterialesController extends Controller
             'unidad_medida' => 'required|string',
             'precio_referencial' => 'required|numeric',
             'fecha_ultima_modificacion' => 'required|date',
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Opcional: para manejar imágenes
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'categoria_id' => 'required', // Agregar la validación de categoría
         ]);
 
         if ($request->hasFile('imagen')) {

@@ -16,6 +16,7 @@
             </div>
             <div class="mb-4">
                 <label for="datos_adicionales" class="block text-sm font-medium text-gray-600">Datos Adicionales</label>
+                <textarea name="datos_adicionales" id="myeditorinstance">{{ $contratista->datos_adicionales }}</textarea>
                 <!-- Agrega aquí el campo del editor WYSIWYG y prellénalo con $contratista->datos_adicionales -->
             </div>
             <div>
