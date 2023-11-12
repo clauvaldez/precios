@@ -6,7 +6,9 @@ use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\ContratistasController;
 use App\Http\Controllers\CategoriasController;
-
+use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +21,25 @@ use App\Http\Controllers\CategoriasController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+
+
+// Rutas de lista
+Route::get('/add-to-list/{materialId}', [HomeController::class, 'addToTempList'])->name('add-to-list');
+Route::get('/view-temp-list',  [HomeController::class, 'viewTempList'])->name('view-temp-list');
+Route::delete('/remove-from-list/{materialId}',  [HomeController::class, 'removeFromTempList'])->name('remove-from-list');
+Route::delete('/clear-temp-list',  [HomeController::class, 'clearTempList'])->name('clear-temp-list');
+
+// Rutas de cotizacion
+Route::post('/solicitar', [CotizacionController::class, 'solicitarCotizacion'])->name('solicitarcotizacion');
+
+// Rutas protegidas con autenticación y rol "admin"
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -50,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::put('empresas/{empresa}', [EmpresasController::class, 'update'])->name('empresas.update');
     Route::delete('empresas/{empresa}', [EmpresasController::class, 'destroy'])->name('empresas.destroy');
 
-    //Contratistas
+    // Contratistas
     Route::get('contratistas', [ContratistasController::class, 'index'])->name('contratistas.index');
     Route::get('contratistas/create', [ContratistasController::class, 'create'])->name('contratistas.create');
     Route::post('contratistas', [ContratistasController::class, 'store'])->name('contratistas.store');
@@ -58,8 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('contratistas/{contratista}/edit', [ContratistasController::class, 'edit'])->name('contratistas.edit');
     Route::put('contratistas/{contratista}', [ContratistasController::class, 'update'])->name('contratistas.update');
 
-    //Categorias de Materiales
-
+    // Categorias de Materiales
     Route::get('categorias', [CategoriasController::class, 'index'])->name('categorias.index');
     Route::get('categorias/create', [CategoriasController::class, 'create'])->name('categorias.create');
     Route::post('categorias', [CategoriasController::class, 'store'])->name('categorias.store');
@@ -69,7 +80,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('categorias/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');
 });
 
-
 require __DIR__ . '/auth.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\IndexController::class, 'index'])->name('dashboard');
+

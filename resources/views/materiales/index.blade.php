@@ -24,7 +24,8 @@
                 <td class="px-4 py-2">{{ $material->unidad_medida }}</td>
                 <td class="px-4 py-2">{{ $material->precio_referencial }}</td>
                 <td class="px-4 py-2">{{ $material->fecha_ultima_modificacion }}</td>
-                <td class="px-4 py-2">{{ $material->imagen }}</td>
+                <td class="px-4 py-2"> <img src="{{ asset('storage/' . $material->imagen) }}" alt="Imagen del material" class="w-16 h-16">
+                </td>
                 <td class="px-4 py-2">
                     <a href="{{ route('materiales.show', $material) }}" class="text-blue-500">Ver</a>
                     <a href="{{ route('materiales.edit', $material) }}" class="text-green-500 ml-2">Editar</a>

@@ -16,18 +16,24 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/cibowcfs27frz8y2zxqr5p8t3iinpt2jewrek882hvo2m25g/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>    <script>
+    <script src="https://cdn.tiny.cloud/1/cibowcfs27frz8y2zxqr5p8t3iinpt2jewrek882hvo2m25g/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
         tinymce.init({
             selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
             plugins: 'code table lists',
             toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
         });
     </script>
+
 </head>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        @auth
         @include('layouts.navigation')
+        @else
+        @include('layouts.navigationguest')
+        @endauth
 
         <!-- Page Heading -->
         @if (isset($header))
