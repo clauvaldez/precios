@@ -35,11 +35,17 @@ Route::get('/view-temp-list',  [HomeController::class, 'viewTempList'])->name('v
 Route::delete('/remove-from-list/{materialId}',  [HomeController::class, 'removeFromTempList'])->name('remove-from-list');
 Route::delete('/clear-temp-list',  [HomeController::class, 'clearTempList'])->name('clear-temp-list');
 
-// Rutas de cotizacion
-Route::post('/solicitar', [CotizacionController::class, 'solicitarCotizacion'])->name('solicitarcotizacion');
+// Rutas de empresa 
+Route::get('/empresas_public', [EmpresasController::class, 'empresas_public'])->name('empresas.empresas_public');
+// Rutas de contratistas
+Route::get('/contratistas_public', [ContratistasController::class, 'contratistas_public'])->name('contratistas.contratistas_public');
+
+
+
+
 
 // Rutas protegidas con autenticación y rol "admin"
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -78,10 +84,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('categorias/{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.edit');
     Route::put('categorias/{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
     Route::delete('categorias/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');
+
+
 });
 
 require __DIR__ . '/auth.php';
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\IndexController::class, 'index'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/descargar-archivo', 'DescargaController@descargarArchivo')->name('descargar.archivo');
+
+        // Rutas de cotizacion
+Route::post('/solicitar', [CotizacionController::class, 'solicitarCotizacion'])->name('solicitarcotizacion');
+Route::post('/descargarlista', [CotizacionController::class, 'descargarlista'])->name('descargarlista');
+
+});
 

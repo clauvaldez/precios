@@ -29,6 +29,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+
         @auth
         @include('layouts.navigation')
         @else
@@ -46,6 +47,12 @@
 
         <!-- Page Content -->
         <main>
+        @if(session('error'))
+    <script type="text/javascript">
+        alert('{{ session('error') }}');
+    </script>
+@endif
+
             @yield('content')
         </main>
     </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto">
         <h1 class="text-2xl font-semibold mb-4">Editar Empresa</h1>
-        <form action="{{ route('empresas.update', $empresa) }}" method="POST">
+        <form action="{{ route('empresas.update', $empresa) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-4">
@@ -30,6 +30,13 @@
                 <label for="redes" class="block text-sm font-medium text-gray-600">Redes</label>
                 <input type="text" name="redes" id="redes" class="form-input" value="{{ $empresa->redes }}">
             </div>
+            <div class="mb-4">
+    <label for="logo" class="block text-sm font-medium text-gray-600">Logo:</label>
+    @if($empresa->logo)
+        <img src="{{ asset('storage/' . $empresa->logo) }}" alt="Logo de la empresa" class="mt-2 mb-2">
+    @endif
+    <input type="file" name="logo">
+</div>
             <div>
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Actualizar Empresa</button>
             </div>

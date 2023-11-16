@@ -21,6 +21,17 @@
         <div class="mb-4">
             <strong>Redes:</strong> {{ $empresa->redes }}
         </div>
+        <div class="mb-4">
+    <strong>Logo:</strong>
+    @if($empresa->logo)
+        <img src="{{ asset('storage/' . $empresa->logo) }}" alt="Logo de la empresa" class="mt-2 mb-2">
+    @else
+        <span>No hay logo disponible</span>
+    @endif
+</div>
+<div class="mt-4">
+    <a href="{{ route('empresas.edit', $empresa) }}" class="text-green-500">Editar Empresa</a>
+</div>
         <div class="mt-4">
             <a href="{{ route('empresas.index') }}" class="text-blue-500">Volver a la lista</a>
         </div>

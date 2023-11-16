@@ -11,6 +11,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "spatie/laravel-permission": "^6.1",
         "swiftmailer/swiftmailer": "^6.3",
         "tinymce/tinymce": "^6.7",
         "yajra/laravel-datatables": "^9.0"

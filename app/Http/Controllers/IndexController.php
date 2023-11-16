@@ -9,8 +9,13 @@ class IndexController extends Controller
 {
     public function index()
     {
+        $tempList = session()->get('tempList', []);
+    $tempListIds = array_column($tempList, 'id');
+
         $materiales = Material::all();
-        return view('welcome', compact('materiales'));
+        return view('welcome', compact('materiales', 'tempListIds'));
+
+
 
 
         //return view('home');

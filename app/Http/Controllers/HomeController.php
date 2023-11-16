@@ -25,8 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $tempList = session()->get('tempList', []);
+    $tempListIds = array_column($tempList, 'id');
+
         $materiales = Material::all();
-        return view('home', compact('materiales'));
+        return view('home', compact('materiales', 'tempListIds'));
 
 
         //return view('home');

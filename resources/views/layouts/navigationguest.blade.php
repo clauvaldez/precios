@@ -13,15 +13,23 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Lista de Materiales') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('empresas.empresas_public')" :active="request()->routeIs('empresas.empresas_public')">
+                {{ __('Lista de Empresas') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('contratistas.contratistas_public')" :active="request()->routeIs('contratistas.contratistas_public')">
+                {{ __('Lista de Contratistas') }}
+            </x-nav-link>
+
                     <x-nav-link :href="route('login')" >
-                {{ __('Log in') }}
+                {{ __('Iniciar Sesion') }}
             </x-nav-link>
 
             <x-nav-link :href="route('register')" :active="request()->routeIs('dashboard')">
-                {{ __('Register') }}
+                {{ __('Registrarse') }}
             </x-nav-link>
                     <!-- <x-nav-link :href="route('materiales.index')" :active="request()->routeIs('materiales.index')">
                         {{ __('Materiales') }}
@@ -60,15 +68,23 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Lista de Materiales') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('empresas.empresas_public')" :active="request()->routeIs('empresas.empresas_public')">
+                {{ __('Lista de Empresas') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('contratistas.contratistas_public')" :active="request()->routeIs('contratistas.contratistas_public')">
+                {{ __('Lista de Contratistas') }}
             </x-nav-link>
 
             <x-nav-link :href="route('login')" >
-                {{ __('Log in') }}
+                {{ __('Iniciar Sesion') }}
             </x-nav-link>
 
             <x-nav-link :href="route('register')" :active="request()->routeIs('dashboard')">
-                {{ __('Register') }}
+                {{ __('Registrarse') }}
             </x-nav-link>
 
             <!-- <x-nav-link :href="route('materiales.index')" :active="request()->routeIs('materiales.index')">
@@ -95,7 +111,7 @@
 
         <div class="mt-3 space-y-1">
             <x-responsive-nav-link :href="route('profile.edit')">
-                {{ __('Profile') }}
+                {{ __('Perfil') }}
             </x-responsive-nav-link>
 
             <!-- Authentication -->
@@ -103,7 +119,7 @@
                 @csrf
 
                 <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Salir') }}
                 </x-responsive-nav-link>
             </form>
         </div>

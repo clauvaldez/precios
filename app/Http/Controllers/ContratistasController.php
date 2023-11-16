@@ -63,4 +63,10 @@ class ContratistasController extends Controller
         return redirect()->route('contratistas.index')
             ->with('success', 'Contratista eliminado satisfactoriamente');
     }
+ 
+    public function contratistas_public()
+    {
+        $contratistas = Contratista::all();
+        return view('contratistas.constratistas_public', compact('contratistas'));
+    }
 }

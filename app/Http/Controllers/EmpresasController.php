@@ -27,7 +27,15 @@ class EmpresasController extends Controller
             'nombre_contacto' => 'required|string',
             'telefono' => 'required|string',
             'redes' => 'string|nullable',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Añade esta línea para la validación del logo
+
         ]);
+
+    
+        if ($request->hasFile('logo')) {
+            $imagenPath = $request->file('logo')->store('logos', 'public');
+            $data['logo'] = $imagenPath;
+        }
 
         Empresa::create($data);
 
@@ -53,7 +61,15 @@ class EmpresasController extends Controller
             'nombre_contacto' => 'required|string',
             'telefono' => 'required|string',
             'redes' => 'string|nullable',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Añade esta línea para la validación del logo
+
         ]);
+
+
+        if ($request->hasFile('logo')) {
+            $imagenPath = $request->file('logo')->store('logos', 'public');
+            $data['logo'] = $imagenPath;
+        }
 
         $empresa->update($data);
 
@@ -64,5 +80,11 @@ class EmpresasController extends Controller
     {
         $empresa->delete();
         return redirect()->route('empresas.index')->with('success', 'Empresa eliminada con éxito.');
+    }
+
+    public function empresas_public()
+    {
+        $empresas = Empresa::all();
+        return view('empresas.empresas_public', compact('empresas'));
     }
 }

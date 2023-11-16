@@ -5,11 +5,18 @@
 
 @section('content')
 
+
+
 <div class="container mx-auto">
     
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold">Lista de Materiales</h1>
-        <a href="{{ route('view-temp-list') }}" class="bg-green-500 text-white px-4 py-2 rounded-md">Cotizar</a>
+        
+        @if(count(session('tempList', [])) > 0)
+            <a href="{{ route('view-temp-list') }}" class="bg-green-500 text-white px-4 py-2 rounded-md">Ver Lista</a>
+        @endif
+
+
     </div>
     <table id="materialsTable" class="min-w-full bg-white rounded-lg shadow-xs">
         <thead>
@@ -33,10 +40,12 @@
                     <img src="{{ asset('storage/' . $material->imagen) }}" alt="Imagen del material" class="h-8 material-image" data-material="{{ asset('storage/' . $material->imagen) }}">
                 </td>
                 <td class="px-4 py-2">
-                    <a href="{{ route('add-to-list', ['materialId' => $material->id]) }}" class="text-blue-500 underline">
-                        Agregar a lista</a> 
-                     || Sugerir Cambio
-                </td>
+            @if (!in_array($material->id, $tempListIds))
+                <a href="{{ route('add-to-list', ['materialId' => $material->id]) }}" class="text-blue-500 underline">
+                    Agregar a lista
+                </a>
+            @endif
+        </td>
             </tr>
             @endforeach
         </tbody>

@@ -16,5 +16,6 @@ class Empresa extends Model
         'nombre_contacto',
         'telefono',
         'redes',
+        'logo',
     ];
 }

@@ -51,27 +51,54 @@
     </table>
 
     <!-- Muestra el total de precios referenciales -->
-    <p class="text-lg font-semibold mt-4">Total: Gs. {{ number_format($totalPrice, 2, ',', '.') }}</p>
+    <p class="text-lg font-semibold mt-4 gap-4">Total: Gs. {{ number_format($totalPrice, 2, ',', '.') }}</p>
     @if (count($tempList) > 0)
+    @auth
         <div class="container">
-            <div class="flex justify-content items-center mt-12">
-            <form action="{{ route('solicitarcotizacion') }}" method="POST">
-                <select name="empresa" id="">
-                    <option value="">Seleccionar Empresa</option>
-                    @foreach($empresas as $empresa)
-                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                    @endforeach
-                </select>
+            <div class="flex justify-content items-center mt-12 gap-4">
+                <form action="{{ route('solicitarcotizacion') }}" method="POST">
+                    <select name="empresa" id="">
+                        <option value="">Seleccionar Empresa</option>
+                        @foreach($empresas as $empresa)
+                            <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                        @endforeach
+                    </select>
 
-
-                
                     @csrf
                     @method('POST')
                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Solicitar Cotización</button>
                 </form>
+
+                <form action="{{ route('descargarlista') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-md">Descargar Lista</button>
+                </form>
             </div>
         </div>
-    @endif
+    @else
+    
+        <div class="container">
+            
+            <div class="flex justify-content items-center mt-12 gap-4">
+
+                <div class="blurry-effect">
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Solicitar Cotización</button>
+                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-md">Descargar Lista</button>
+                    <!-- Contenido desenfocado -->
+                </div>
+                <p class="text-gray-500">Registrate o Inicia sesión para acceder a estas funciones</p>
+
+            </div>
+        </div>
+        <style>
+            .blurry-effect {
+                filter: blur(1.5px); /* Puedes ajustar el valor de blur según tus preferencias */
+            }
+        </style>
+    @endauth
+@endif
+
 
 
 
